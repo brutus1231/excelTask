@@ -14,13 +14,15 @@ import java.util.List;
 public class LanguageDetector {
 
     public static void main(String[] args) throws APIError, IOException {
-        String language = detect("das auto fährt schnell");
-        System.out.println("Język to " + language);
+        detectLanguagesInFolder("C:\\artykuly");
+    }
 
-        String lines = readLinesFromFile("C:\\artykuly\\chunichi.txt");
-        System.out.println(detect(lines));
-
-        List<String> filePaths = readAllFilePaths("C:\\artykuly");
+    private static void detectLanguagesInFolder(String folderPath) throws IOException, APIError {
+        List<String> filePaths = readAllFilePaths(folderPath);
+        for (String filePath : filePaths) {
+            String lines = readLinesFromFile(filePath);
+            System.out.println(filePath + " " + detect(lines));
+        }
     }
 
     private static List<String> readAllFilePaths(String path) {
